@@ -239,7 +239,7 @@ function draw() {
       if (width < height) {
         textAlign(CENTER, CENTER);
         fill(255);
-        textSize(50);
+        textSize(20);
         text("Please Rotate your Device", width / 2, height / 2 - 150);
         text("Turn On Landscape Mode", width / 2, height / 2 - 100);
         text("Refresh the Page!", width / 2, height / 2 - 50);
@@ -475,7 +475,6 @@ function draw() {
     bgMusicButton.show();
     soundEffectButton.position(width / 2 + 10, height / 2 + 80);
     soundEffectButton.show();
-    link.show();
   }
 
   drawSprites();
