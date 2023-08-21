@@ -210,6 +210,11 @@ function setup() {
   link.style("font-size", "20px");
   link.style("color", "white");
   link.style("text-decoration", "none");
+  link.touchStarted(function () {
+    if (link) {
+      window.open(link.elt.href, "_blank");
+    }
+  });
 }
 
 function draw() {
@@ -557,19 +562,18 @@ function playerHit(player, any) {
 
 function touchStarted() {
   if (isMobileDevice) {
-    if (link && link.elt.contains(touches[0].x, touches[0].y)) {
-      window.open(link.elt.href, "_blank");
-    }
     let touchDistance = dist(
       controlPanelCenterX,
       controlPanelCenterY,
       touches[0].x,
       touches[0].y
     );
+
     if (touchDistance <= controlPanelDiameter / 2) {
       isTouchingControl = true;
       touchVector = createVector(touches[0].x, touches[0].y);
     }
+
     return false;
   }
 }
