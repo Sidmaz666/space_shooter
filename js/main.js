@@ -201,8 +201,8 @@ function setup() {
     bgMusicButton.touchStarted(bgMusicPlay);
     soundEffectButton.touchStarted(soundEffectToggle);
     disableDoubleTapZoom();
-    controlPanelCenterX = controlPanelDiameter / 2 + 50 ;
-    controlPanelCenterY = height - controlPanelDiameter / 2 - 10 ;
+    controlPanelCenterX = controlPanelDiameter / 2 + 60 ;
+    controlPanelCenterY = height - controlPanelDiameter / 2 - 20 ;
   }
   bgMusic.setVolume(0.15);
   link = createA("https://github.com/sidmaz666", "Developed By Sidmaz666");
