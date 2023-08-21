@@ -201,7 +201,7 @@ function setup() {
     bgMusicButton.touchStarted(bgMusicPlay);
     soundEffectButton.touchStarted(soundEffectToggle);
     disableDoubleTapZoom();
-    controlPanelCenterX = width - controlPanelDiameter / 2 - 20;
+    controlPanelCenterX = controlPanelDiameter / 2 + 20 ;
     controlPanelCenterY = height - controlPanelDiameter / 2 - 20;
   }
   bgMusic.setVolume(0.15);
@@ -428,6 +428,12 @@ function draw() {
 
     player.collide(enemies, playerHit);
 
+  }
+
+
+  drawSprites();
+
+  if(gameStarted){
     textSize(20);
     fill(255);
     textAlign(LEFT);
@@ -476,8 +482,6 @@ function draw() {
     soundEffectButton.position(width / 2 + 10, height / 2 + 80);
     soundEffectButton.show();
   }
-
-  drawSprites();
 }
 
 function shootBullet() {
