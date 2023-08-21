@@ -201,8 +201,8 @@ function setup() {
     bgMusicButton.touchStarted(bgMusicPlay);
     soundEffectButton.touchStarted(soundEffectToggle);
     disableDoubleTapZoom();
-    controlPanelCenterX = controlPanelDiameter / 2 + 20 ;
-    controlPanelCenterY = height - controlPanelDiameter / 2 - 10 ;
+    controlPanelCenterX = controlPanelDiameter / 2 + 20;
+    controlPanelCenterY = height - controlPanelDiameter / 2 - 10;
   }
   bgMusic.setVolume(0.15);
   link = createA("https://github.com/sidmaz666", "Developed By Sidmaz666");
@@ -427,13 +427,11 @@ function draw() {
     }
 
     player.collide(enemies, playerHit);
-
   }
-
 
   drawSprites();
 
-  if(gameStarted){
+  if (gameStarted) {
     textSize(20);
     fill(255);
     textAlign(LEFT);
@@ -559,6 +557,9 @@ function playerHit(player, any) {
 
 function touchStarted() {
   if (isMobileDevice) {
+    if (link && link.elt.contains(touches[0].x, touches[0].y)) {
+      window.open(link.elt.href, "_blank");
+    }
     let touchDistance = dist(
       controlPanelCenterX,
       controlPanelCenterY,
