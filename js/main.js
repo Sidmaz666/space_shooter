@@ -51,6 +51,7 @@ let bgMusicButton;
 let isSoundEffect = false;
 let soundEffectButton;
 let link;
+let statDiv;
 const isMobileByScreenWidth = () => window.innerWidth <= 768;
 const isMobileByUserAgent = () =>
   /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -215,6 +216,9 @@ function setup() {
       window.open(link.elt.href, "_blank");
     }
   });
+  statDiv = createDiv();
+  statDiv.position(0,0);
+  statDiv.style('width','100vw');
 }
 
 function draw() {
@@ -437,25 +441,37 @@ function draw() {
   drawSprites();
 
   if (gameStarted) {
-    textSize(20);
-    fill(255);
-    textAlign(LEFT);
-    text(`Level: ${level}`, 10, 30);
 
-    textSize(20);
-    fill(255);
-    textAlign(RIGHT);
-    text(`Lives: ${playerLives}`, width - 20, 30);
-
-    textSize(20);
-    fill(255);
-    textAlign(RIGHT);
-    text(`Score: ${playerScore}`, width - 20, 60);
-
-    textSize(20);
-    fill(255);
-    textAlign(RIGHT);
-    text(`Kills: ${enemiesKilled}`, width - 20, 90);
+    statDiv.html(`
+      <div style="
+      display:flex;width:100%;
+      padding:5px; justify-content:space-between;
+      align-items:center;
+      font-size:20px; color:#FFFFFF;
+      ">
+      <div style="width:300px;font-weight:bold;">
+	<span>
+	Level: ${level}</span>
+	<progress
+	style="display:${isBoss ? 'none' : 'block'};
+	width:100px;"
+	value="${enemiesKilled - lastkillShot}"
+	max="${level * 10 + lastkillShot}"
+	></progress>
+	<progress
+	style="display:${isBoss ? 'block' : 'none'};
+	width:100px"
+	value="${bossHealth}"
+	max="${25 * level}"
+	></progress>
+      </div>
+      <div style="display:flex;gap:10px;">
+      <span>❤️  ${playerLives}</span>
+      <span>🪙 ${playerScore}</span>
+      <span>💀 ${enemiesKilled}</span>
+      </div>
+      </div>
+      `)
   }
 
   if (gameOver) {
