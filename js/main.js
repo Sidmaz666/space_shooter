@@ -223,7 +223,7 @@ function setup() {
   statDiv.style("width", "100vw");
 
   pauseButton = createButton(`
-  	⏸
+  ⏸️
     `);
   pauseButton.style('cursor','pointer');
   pauseButton.style('border','none');
@@ -461,6 +461,7 @@ function draw() {
     statDiv.html(`
       <div style="
       display:flex;width:100%;
+      padding-top:15px;
       padding:10px; justify-content:space-between;
       align-items:center;
       font-size:20px; color:#FFFFFF;
@@ -739,12 +740,12 @@ function pause() {
   if (isPause) {
     noLoop();
   pauseButton.html(`
-  ▶
+  ▶️
     `)
   } else {
     loop();
   pauseButton.html(`
-  ⏸
+  ⏸️
     `)
   }
   isPause = !isPause;
