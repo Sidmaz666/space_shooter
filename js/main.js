@@ -52,6 +52,8 @@ let isSoundEffect = false;
 let soundEffectButton;
 let link;
 let statDiv;
+let isPause = true;
+let pauseButton;
 const isMobileByScreenWidth = () => window.innerWidth <= 768;
 const isMobileByUserAgent = () =>
   /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -217,8 +219,21 @@ function setup() {
     }
   });
   statDiv = createDiv();
-  statDiv.position(0,0);
-  statDiv.style('width','100vw');
+  statDiv.position(0, 0);
+  statDiv.style("width", "100vw");
+
+  pauseButton = createButton(`
+  	⏸
+    `);
+  pauseButton.style('cursor','pointer');
+  pauseButton.style('border','none');
+  pauseButton.style('font-size','16px');
+  pauseButton.style('background','none');
+  pauseButton.style('color','#FFFFFF')
+  pauseButton.style('text-align','center');
+  pauseButton.position(width / 2, height - (height - 15));
+  pauseButton.mousePressed(pause);
+  pauseButton.touchStarted(pause);
 }
 
 function draw() {
@@ -236,10 +251,12 @@ function draw() {
     startButton.show();
     bgMusicButton.show();
     soundEffectButton.show();
+    pauseButton.hide();
   } else {
     startButton.hide();
     bgMusicButton.hide();
     soundEffectButton.hide();
+    pauseButton.show();
     link.hide();
     player.position.x = constrain(player.position.x, 20, width - 50);
     player.position.y = constrain(player.position.y, 20, height - 20);
@@ -441,25 +458,45 @@ function draw() {
   drawSprites();
 
   if (gameStarted) {
-
     statDiv.html(`
       <div style="
       display:flex;width:100%;
-      padding:5px; justify-content:space-between;
+      padding:10px; justify-content:space-between;
       align-items:center;
       font-size:20px; color:#FFFFFF;
       ">
+      <style>
+       progress {
+       border: 1px solid white;
+       border-radius:8px;
+       height:10px;
+       }
+       progress::-webkit-progress-bar {
+          background-color: white; 
+       }
+	#boss-prog::-webkit-progress-value {
+	   background-color: red;
+	   border-radius:8px;
+	}
+	#level-prog::-webkit-progress-value {
+	   background-color: blue;
+	   border-radius:8px;
+	}
+      </style>
       <div style="width:300px;font-weight:bold;">
 	<span>
-	Level: ${level}</span>
+	${isBoss ? "Boss: " + level : "Level: " + level}
+	</span>
 	<progress
-	style="display:${isBoss ? 'none' : 'block'};
+	id="level-prog"
+	style="display:${isBoss ? "none" : "block"};
 	width:100px;"
 	value="${enemiesKilled - lastkillShot}"
 	max="${level * 10 + lastkillShot}"
 	></progress>
 	<progress
-	style="display:${isBoss ? 'block' : 'none'};
+	id="boss-prog"
+	style="display:${isBoss ? "block" : "none"};
 	width:100px"
 	value="${bossHealth}"
 	max="${25 * level}"
@@ -471,7 +508,7 @@ function draw() {
       <span>💀 ${enemiesKilled}</span>
       </div>
       </div>
-      `)
+      `);
   }
 
   if (gameOver) {
@@ -500,6 +537,7 @@ function draw() {
     bgMusicButton.show();
     soundEffectButton.position(width / 2 + 10, height / 2 + 80);
     soundEffectButton.show();
+    pauseButton.hide();
   }
 }
 
@@ -695,6 +733,21 @@ function soundEffectToggle() {
     </div>
     `
   );
+}
+
+function pause() {
+  if (isPause) {
+    noLoop();
+  pauseButton.html(`
+  ▶
+    `)
+  } else {
+    loop();
+  pauseButton.html(`
+  ⏸
+    `)
+  }
+  isPause = !isPause;
 }
 
 function disableDoubleTapZoom() {
