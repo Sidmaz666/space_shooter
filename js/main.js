@@ -465,9 +465,9 @@ function draw() {
 	max="${25 * level}"
 	></progress>
       </div>
-      <div style="display:flex;gap:10px;">
+      <div style="display:flex;gap:10px;align-items:center">
       <span>❤️  ${playerLives}</span>
-      <span>🪙 ${playerScore}</span>
+      <span>💰 ${playerScore}</span>
       <span>💀 ${enemiesKilled}</span>
       </div>
       </div>
